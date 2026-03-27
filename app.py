@@ -1,30 +1,14 @@
 import streamlit as st
 import pandas as pd
-import os
 import undetected_chromedriver as uc
 from bs4 import BeautifulSoup
-import selenium
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.core.os_manager import ChromeType
-
 import time
-import shutil
 
 data={'Title':[],'Price':[],'Location':[],'Link':[],'ImageLink':[]}
 
 
 def darazscrape(query, page):
-    chrome_options = Options()
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--disable-gpu")
-    chrome_options.binary_location = "/usr/bin/google-chrome"
-    service = Service("/usr/bin/chromedriver")
-    driver = webdriver.Chrome(service=service, options=chrome_options)
+    driver = uc.Chrome(headless=True)
     for i in range(1, page + 1):
         url = f'https://www.daraz.com.bd/catalog/?page={i}&q={query}&spm=a2a0e.tm80335411.search.d_go'
         driver.get(url)
