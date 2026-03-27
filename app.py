@@ -9,22 +9,22 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
-chrome_options = Options()
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("--no-sandbox")
-chrome_options.add_argument("--disable-dev-shm-usage")
-chrome_options.add_argument("--disable-gpu")
+
 import time
 import shutil
 
 data={'Title':[],'Price':[],'Location':[],'Link':[],'ImageLink':[]}
-chrome_options.binary_location = "/usr/bin/google-chrome"
+
 
 def darazscrape(query, page):
-    driver = webdriver.Chrome(
-        service=Service(ChromeDriverManager(chrome_type=ChromeType.GOOGLE).install()),
-        options=chrome_options
-    )
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.binary_location = "/usr/bin/google-chrome"
+    service = Service("/usr/bin/chromedriver")
+    driver = webdriver.Chrome(service=service, options=chrome_options)
     for i in range(1, page + 1):
         url = f'https://www.daraz.com.bd/catalog/?page={i}&q={query}&spm=a2a0e.tm80335411.search.d_go'
         driver.get(url)
