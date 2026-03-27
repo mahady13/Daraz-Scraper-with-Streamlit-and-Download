@@ -18,7 +18,7 @@ import time
 import shutil
 
 data={'Title':[],'Price':[],'Location':[],'Link':[],'ImageLink':[]}
-
+chrome_options.binary_location = "/usr/bin/google-chrome"
 
 def darazscrape(query, page):
     driver = webdriver.Chrome(
