@@ -10,13 +10,16 @@ chrome_options = Options()
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
-chrome_options.binary_location = "/usr/bin/google-chrome"
 import time
+import shutil
 
 data={'Title':[],'Price':[],'Location':[],'Link':[],'ImageLink':[]}
 
 
 def darazscrape(query, page):
+    chrome_path = shutil.which("google-chrome") or shutil.which("chromium")
+    if chrome_path:
+        chrome_options.binary_location = chrome_path
     driver = uc.Chrome(options=chrome_options,headless=True)
     for i in range(1, page + 1):
         url = f'https://www.daraz.com.bd/catalog/?page={i}&q={query}&spm=a2a0e.tm80335411.search.d_go'
